@@ -1,0 +1,21 @@
+﻿<Window x:Class="nk_Image_Converter.DynamicControls.ProgressBarWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ProgressBarWindow" Height="100" Width="500" BorderThickness="0" WindowStyle="None" ResizeMode="NoResize" Background="#d4dce6" Loaded="Window_Loaded" >
+    <Window.Effect>
+        <DropShadowEffect Opacity="0.4"/>
+    </Window.Effect>
+    <Border BorderBrush="CadetBlue" BorderThickness="3,0,3,3">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Background="CadetBlue"></Grid>
+            <Grid Grid.Row="1" Background="Transparent">
+                <Label x:Name="Message" Content="Please Wait..." Margin="42,15"/>
+                <ProgressBar x:Name="Progressbar" Width="400" Height="25" Margin="47,38,47,14" Foreground="CadetBlue" BorderBrush="CadetBlue" BorderThickness="2"></ProgressBar>
+            </Grid>           
+        </Grid>
+    </Border>
+</Window>

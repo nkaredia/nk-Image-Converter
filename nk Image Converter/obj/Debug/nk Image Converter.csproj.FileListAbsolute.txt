@@ -1,0 +1,24 @@
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\bin\Debug\nk Image Converter.exe.config
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\bin\Debug\nk Image Converter.exe
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\bin\Debug\nk Image Converter.pdb
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\obj\Debug\MainWindow.baml
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\obj\Debug\MainWindow.g.cs
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\obj\Debug\App.g.cs
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\obj\Debug\nk Image Converter_MarkupCompile.cache
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\obj\Debug\nk Image Converter.g.resources
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\obj\Debug\nk_Image_Converter.Properties.Resources.resources
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\obj\Debug\nk Image Converter.csproj.GenerateResource.Cache
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\obj\Debug\nk Image Converter.exe
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\obj\Debug\nk Image Converter.pdb
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\obj\Debug\DynamicControls\ConvertWindow.baml
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\obj\Debug\DynamicControls\ImageButton.baml
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\obj\Debug\DynamicControls\ImageGridContainer.baml
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\obj\Debug\DynamicControls\ImageProperties.baml
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\obj\Debug\DynamicControls\ProgressBarWindow.baml
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\obj\Debug\DynamicControls\ConvertWindow.g.cs
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\obj\Debug\DynamicControls\ImageButton.g.cs
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\obj\Debug\DynamicControls\ImageGridContainer.g.cs
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\obj\Debug\DynamicControls\ImageProperties.g.cs
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\obj\Debug\DynamicControls\ProgressBarWindow.g.cs
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\obj\Debug\nk Image Converter_MarkupCompile.lref
+C:\Users\noorsil\Documents\Visual Studio 2013\Projects\WPF\wp\nk Image Converter\nk Image Converter\obj\Debug\nk Image Converter.csprojResolveAssemblyReference.cache

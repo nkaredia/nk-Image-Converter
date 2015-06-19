@@ -1,0 +1,90 @@
+﻿<Window x:Class="nk_Image_Converter.DynamicControls.ImageProperties"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ImageProperties" Height="400" Width="300" WindowStyle="None" ResizeMode="NoResize" Background="#d4dce6" BorderBrush="#d4dce6" BorderThickness="0">
+    <Window.Resources>
+        <Style TargetType="ToolTip">
+            <Setter Property="Background" Value="#d4dce6"/>           
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="CadetBlue"/>
+        </Style>
+    </Window.Resources>
+    <Window.Effect>
+        <DropShadowEffect Opacity="0.4"/>
+    </Window.Effect>
+    <Border BorderThickness="3,0,3,3" BorderBrush="CadetBlue">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Background="CadetBlue">
+                <Label Content="Properties" HorizontalAlignment="Center" FontSize="15"/>
+            </Grid>
+            <Grid x:Name="PropertyContainer" Grid.Row="1">
+                <Border BorderBrush="CadetBlue" BorderThickness="2" Height="116" Width="150" VerticalAlignment="Top" Margin="68,5,68,0">
+                    <Image x:Name="_Image" Width="150" Height="125"/>
+                </Border>
+                <Grid Height="215" VerticalAlignment="Bottom" Background="Transparent" Margin="30,0,30,10">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Background="Transparent">
+                            <TextBlock Text="Path" HorizontalAlignment="Center" Margin="70,10,23,0" Foreground="CadetBlue" FontWeight="SemiBold"/>
+                            <TextBlock Text="Name" HorizontalAlignment="Center" Margin="62,10,23,0" Foreground="CadetBlue" FontWeight="SemiBold"/>
+                            <TextBlock Text="Type" HorizontalAlignment="Center" Margin="68,10,23,0" Foreground="CadetBlue" FontWeight="SemiBold"/>
+                            <TextBlock Text="Width" HorizontalAlignment="Center" Margin="61,10,22,0" Foreground="CadetBlue" FontWeight="SemiBold" Width="34"/>
+                            <TextBlock Text="Height" HorizontalAlignment="Center" Margin="57,10,22,0" Foreground="CadetBlue" FontWeight="SemiBold" Width="38"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Background="Transparent">
+                            <TextBlock x:Name="Path" TextTrimming="CharacterEllipsis" Text="" HorizontalAlignment="Left" Margin="20,10,0,0" Foreground="CadetBlue" FontWeight="SemiBold" Width="87"/>
+                            <TextBlock x:Name="Name" TextTrimming="CharacterEllipsis" Text="" HorizontalAlignment="Left" Margin="20,10,0,0" Foreground="CadetBlue" FontWeight="SemiBold" Width="87"/>
+                            <TextBlock x:Name="Type" TextTrimming="CharacterEllipsis" Text="" HorizontalAlignment="Left" Margin="20,10,0,0" Foreground="CadetBlue" FontWeight="SemiBold" Width="87"/>
+                            <TextBlock x:Name="Width" TextTrimming="CharacterEllipsis" Text="" HorizontalAlignment="Left" Margin="20,10,0,0" Foreground="CadetBlue" FontWeight="SemiBold" Width="87"/>
+                            <TextBlock x:Name="Height" TextTrimming="CharacterEllipsis" Text="" HorizontalAlignment="Left" Margin="20,10,0,0" Foreground="CadetBlue" FontWeight="SemiBold" Width="87"/>
+                        </StackPanel>
+                    </Grid>
+                    <Button x:Name="CloseButton" Grid.Row="1" Content="Close" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0" Margin="63,6,63,4" Width="108" Height="30" Click="CloseButton_Click">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="CadetBlue"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#6fa7a9"/>
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                    </Trigger>
+
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+            </Grid>
+            <Path Stroke="CadetBlue" StrokeThickness="1">
+                <Path.Data>
+                    <GeometryGroup>
+                        <LineGeometry StartPoint="10,175" EndPoint="285,175"/>
+                        <LineGeometry StartPoint="147,180" EndPoint="147,340"/>
+                    </GeometryGroup>
+                </Path.Data>
+            </Path>
+        </Grid>
+    </Border>
+</Window>

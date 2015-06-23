@@ -608,7 +608,7 @@
                     </ComboBoxItem>
                 </ComboBox>
                 <Grid x:Name="ImageTypeSelectionGrid" Height="250" VerticalAlignment="Bottom" Visibility="Visible">
-                    <StackPanel>
+                    <StackPanel x:Name="RadioButtonStackPanel">
                         <RadioButton x:Name="RBPng" HorizontalAlignment="Center" BorderThickness="2" Content="PNG" BorderBrush="#4c7e80" VerticalAlignment="Center" Width="52" Margin="5"/>
                         <RadioButton x:Name="RBJpg" HorizontalAlignment="Center" BorderThickness="2" Content="JPG" BorderBrush="#4c7e80" VerticalAlignment="Center" Width="52" Margin="5"/>
                         <RadioButton x:Name="RBGif" HorizontalAlignment="Center" BorderThickness="2" Content="GIF" BorderBrush="#4c7e80" VerticalAlignment="Center" Width="52" Margin="5"/>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -31,6 +32,8 @@ namespace nk_Image_Converter
         public List<DynamicControls.ImageButton> _imageButton;
         public Lib.FileFetcher fetcher;
         public int row = 0, col = 0;
+        private ImageFormat type;
+        private Lib.ConvertImage convert;
 
         public MainWindow()
         {
@@ -41,8 +44,50 @@ namespace nk_Image_Converter
             fetcher = new Lib.FileFetcher();
             _imageButton = new List<DynamicControls.ImageButton>();
             _imageContainer = new DynamicControls.ImageGridContainer();
+            RowDefinition rd = new RowDefinition();
+            rd.Height = new GridLength(125);
+            this._imageContainer.ImageGrid.RowDefinitions.Add(rd);
             this.ImageContainerSV.Content = _imageContainer;
             this.AllSelectionGrid.Visibility = System.Windows.Visibility.Hidden;
+            this.convert = new Lib.ConvertImage(this.SavePathTextBox.Text);
+            type = ImageFormat.Png;
+            for (int i = 0; i < 8; i++)
+            {
+                (RadioButtonStackPanel.Children[i] as RadioButton).Checked += MainWindow_RadioButton_Checked;
+            }
+        }
+
+        private void MainWindow_RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            var rb = sender as RadioButton;
+            switch (rb.Content.ToString())
+            {
+                case "PNG":
+                    type = ImageFormat.Png;
+                    break;
+                case "JPG":
+                    type = ImageFormat.Jpeg;
+                    break;
+                case "GIF":
+                    type = ImageFormat.Gif;
+                    break;
+                case "BMP":
+                    type = ImageFormat.Bmp;
+                    break;
+                case "ICO":
+                    type = ImageFormat.Icon;
+                    break;
+                case "TIF/TIFF":
+                    type = ImageFormat.Tiff;
+                    break;
+                case "WMF":
+                    type = ImageFormat.Wmf;
+                    break;
+                case "EMF":
+                    type = ImageFormat.Emf;
+                    break;
+            }
+            
         }
 
         private void RadioButtonConstructor()
@@ -252,14 +297,21 @@ namespace nk_Image_Converter
             this.PathTextBox.Text = fetcher.fetch(((bool)FileRadioButton.IsChecked) ? "file" : "folder", this.PathTextBox);
             if (!fetcher.isNewEmpty())
             {
-                _progressBarWindow = new DynamicControls.ProgressBarWindow("Please Wait...",ref _imageContainer,ref row,ref col);
+                _progressBarWindow = new DynamicControls.ProgressBarWindow("Please Wait...",ref _imageContainer,ref fetcher);
                 _progressBarWindow.showDialog();
             }
         }
 
         private void ConvertButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (ConvertResizeSelect.SelectedIndex == 0)
+            {
+                this.convert.convert(this._imageContainer, type);
+            }
+            else
+            {
+                this.convert.resize(this._imageContainer, int.Parse(NumericUpDownWidth.Text), int.Parse(NumericUpDownHeight.Text));
+            }
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)

@@ -43,5 +43,10 @@ namespace nk_Image_Converter.DynamicControls
         {
             new DynamicControls.ImageProperties(this._file, this._img).ShowDialog();
         }
+
+        public Tuple<string, string, string> getFile()
+        {
+            return _file;
+        }
     }
 }

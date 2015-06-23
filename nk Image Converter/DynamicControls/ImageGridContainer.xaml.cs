@@ -20,18 +20,9 @@ namespace nk_Image_Converter.DynamicControls
     /// </summary>
     public partial class ImageGridContainer : UserControl
     {
-        private List<ImageButton> _PreviewImages;
         public ImageGridContainer()
         {
             InitializeComponent();
-            this._PreviewImages = new List<ImageButton>();
-        }
-
-        public void set()
-        {
-            RowDefinition rd = new RowDefinition();
-            rd.Height = new GridLength(125);
-            this.ImageGrid.RowDefinitions.Add(rd);
         }
 
     }

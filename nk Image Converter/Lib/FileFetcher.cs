@@ -53,8 +53,8 @@ namespace nk_Image_Converter.Lib
                     ret = box.Text != "" || box.Text != null ? _folderDialog.SelectedPath : "*\\*";
                     foreach (string file in Directory.GetFiles(_folderDialog.SelectedPath))
                     {
-                        string f = file.ToLower();
-                        extractImageFiles(f);
+                        //string f = file.ToLower();
+                        extractImageFiles(file);
                     }
                 }
             }
@@ -74,10 +74,24 @@ namespace nk_Image_Converter.Lib
                 file.EndsWith(".ico") || file.EndsWith(".ICO") || file.EndsWith(".emf") || file.EndsWith(".EMF") ||
                 file.EndsWith(".tiff") || file.EndsWith(".TIFF") ||file.EndsWith(".jpeg") || file.EndsWith(".JPEG"))
             {
+
+
+
                 extractFilenameAndExtension(file, out filename, out extension);
-                files.Add(new Tuple<string, string, string>(file, filename, extension));
+
+                /*if (this.files.Count < 1)
+                {
+                    files.Add(new Tuple<string, string, string>(file, filename, extension));
+                    newfiles.Add(new Tuple<string, string, string>(file, filename, extension));
+                }*/
+                if (!this.files.Exists(f => f.Item1 == file))
+                {
+                    files.Add(new Tuple<string, string, string>(file, filename, extension));
+                    newfiles.Add(new Tuple<string, string, string>(file, filename, extension));
+                }
+
+
                 
-                newfiles.Add(new Tuple<string, string, string>(file, filename, extension));
             }
         }
 

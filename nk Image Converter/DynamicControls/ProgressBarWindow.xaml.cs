@@ -19,6 +19,111 @@ namespace nk_Image_Converter.DynamicControls
     public partial class ProgressBarWindow : Window
     {
         private BackgroundWorker backgroundWorker;
+        private Lib.FileFetcher fileFetcher;
+        private ImageGridContainer container;
+        private List<Tuple<string, string, string>> newfiles;
+        private int row, col;
+        private double _progress, _progressCounter;
+
+        public ProgressBarWindow(string message, ref ImageGridContainer container,ref Lib.FileFetcher fetcher)
+        {
+            InitializeComponent();
+            InitializeBackgroundWorker();
+            this.fileFetcher = fetcher;
+            this.newfiles = this.fileFetcher.getNewFiles();
+            this.container = container;
+            this.row = ((MainWindow)Application.Current.MainWindow).row;
+            this.col = ((MainWindow)Application.Current.MainWindow).col;
+            this._progress = _progressCounter = 0;
+            this.Message.Content = message;
+            this.Left = Application.Current.MainWindow.Left + 250;
+            this.Top = Application.Current.MainWindow.Top + 200;
+        }
+
+        private void InitializeBackgroundWorker()
+        {
+            backgroundWorker = new BackgroundWorker();
+            backgroundWorker.WorkerReportsProgress = true;
+            backgroundWorker.ProgressChanged += backgroundWorker_ProgressChanged;
+            backgroundWorker.DoWork += backgroundWorker_DoWork;
+            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;    
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.backgroundWorker.RunWorkerAsync();
+        }
+
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            this._progress = 0;
+            addRowdefinition();
+            _progressCounter = (100 / this.newfiles.Count);
+            DynamicControls.ImageButton _ImageButton;
+
+            for (int i = 0; i < this.newfiles.Count; i++)
+            {
+                this.Dispatcher.Invoke((Action)(() => {
+                    _ImageButton = new DynamicControls.ImageButton();
+                    _ImageButton.set(this.newfiles.ElementAt(i));
+                    if (this.col != 0 && Math.Ceiling((double)(this.col % (double)5)) == 0)
+                    {
+                        ++((MainWindow)Application.Current.MainWindow).row;
+                        ++this.row;
+                        this.col = 0;
+                        ((MainWindow)Application.Current.MainWindow).col = 0;
+                    }
+                    Grid.SetRow(_ImageButton, this.row);
+                    Grid.SetColumn(_ImageButton, ((MainWindow)Application.Current.MainWindow).col++);
+                    this.col++;
+                    this.container.ImageGrid.Children.Add(_ImageButton);
+
+                    this._progress += ((_progressCounter + _progress) <= 100) ? _progressCounter : 100;
+                }));
+                (sender as BackgroundWorker).ReportProgress((int)this._progress, this._progress);
+            }
+        }
+
+        private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            this.Progressbar.Value = (double)e.UserState;
+        }
+        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            while (true)
+                if (this.container.ImageGrid.Children.Count == this.fileFetcher.getFiles().Count)
+                    break;
+            this.Close();
+        }
+
+        private void addRowdefinition()
+        {
+            this.Dispatcher.Invoke((Action)(() => {
+                int totalFiles = this.fileFetcher.getFiles().Count;
+                double tempRows = totalFiles / (double)5;
+                int totalRows = (int)Math.Ceiling(tempRows);
+                this.container.Height = totalRows * 125;
+                this.container.ImageGrid.Height = this.container.Height;
+                if (this.container.ImageGrid.RowDefinitions.Count < totalRows)
+                {
+                    for (int i = this.container.ImageGrid.RowDefinitions.Count; i < totalRows; i++)
+                    {
+                        RowDefinition rd = new RowDefinition();
+                        rd.Height = new GridLength(125);
+                        this.container.ImageGrid.RowDefinitions.Add(rd);
+                    }
+                }
+            }));
+            
+        }
+
+        public void showDialog()
+        {
+            ShowDialog();
+        }
+
+
+ /*       private BackgroundWorker backgroundWorker;
         private Lib.FileFetcher fetcher;
         private List<Tuple<string, string, string>> newfiles;
         private double _progress = 0;
@@ -104,11 +209,23 @@ namespace nk_Image_Converter.DynamicControls
             {
                 int rowCount = this.container.ImageGrid.RowDefinitions.Count;
                 int fileCount = this.fetcher.getFiles().Count;
-                for (int i = 0; i < fileCount + rowCount / 5; i++)
+                if (fileCount > 5)
                 {
-                    RowDefinition rd = new RowDefinition();
-                    rd.Height = new GridLength(125);
-                    this.container.ImageGrid.RowDefinitions.Add(rd);
+                    for (int i = 0; i < fileCount + rowCount / 5; i++)
+                    {
+                        RowDefinition rd = new RowDefinition();
+                        rd.Height = new GridLength(125);
+                        this.container.ImageGrid.RowDefinitions.Add(rd);
+                    }
+                }
+                else
+                {
+                    if (this.container.ImageGrid.RowDefinitions.Count < 1)
+                    {
+                        RowDefinition rd = new RowDefinition();
+                        rd.Height = new GridLength(125);
+                        this.container.ImageGrid.RowDefinitions.Add(rd);
+                    }
                 }
             }));
             
@@ -123,98 +240,6 @@ namespace nk_Image_Converter.DynamicControls
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             backgroundWorker.RunWorkerAsync();
-        }
-
-       /* private double _progressCounter = 0;
-        private double _progress = 0;
-        private BackgroundWorker backgroundWorker;
-        private Lib.FileFetcher fetcher;
-        private List<Tuple<string, string, string>> files;
-
-        public ProgressBarWindow(string message)
-        {
-            InitializeComponent();
-            backgroundWorker = new BackgroundWorker();
-            this.Message.Content = message;
-            this.Left = Application.Current.MainWindow.Left + 250;
-            this.Top = Application.Current.MainWindow.Top + 200;
-            backgroundWorker.WorkerReportsProgress = true;
-            backgroundWorker.ProgressChanged += backgroundWorker_ProgressChanged;
-            backgroundWorker.DoWork += backgroundWorker_DoWork;
-            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
-            this.Progressbar.Value = 0;
-            this.fetcher = ((MainWindow)Application.Current.MainWindow).fetcher;
-            this.files = ((MainWindow)Application.Current.MainWindow).fetcher.getNewFiles();
-                        
-
-        }
-
-        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            this.Dispatcher.Invoke((Action)(() =>
-            {
-                this._progress = 0;
-
-                addRowstoGrid();
-                _progressCounter = (100 / this.files.Count);
-            }));
-
-
-            for (int i = 0; i < this.files.Count; i++)
-            {
-                this.Dispatcher.Invoke((Action)(() =>
-                {
-                    DynamicControls.ImageButton b = new DynamicControls.ImageButton();
-                    b.set(this.files.ElementAt(i));
-                    ((MainWindow)Application.Current.MainWindow)._imageContainer.Height = ((((MainWindow)Application.Current.MainWindow).row + 1) * 125);
-                    ((MainWindow)Application.Current.MainWindow)._imageContainer.ImageGrid.Height = ((MainWindow)Application.Current.MainWindow)._imageContainer.Height;
-                    Grid.SetRow(b, ((MainWindow)Application.Current.MainWindow).row);
-                    Grid.SetColumn(b, ((MainWindow)Application.Current.MainWindow).col++);
-                    if ((((MainWindow)Application.Current.MainWindow).col != 0 && (((MainWindow)Application.Current.MainWindow).col) % 5 == 0) || (((MainWindow)Application.Current.MainWindow).col) > 5)
-                    {
-                        ((MainWindow)Application.Current.MainWindow).col = 0;
-                        ++((MainWindow)Application.Current.MainWindow).row;
-                    }
-                    ((MainWindow)Application.Current.MainWindow)._imageContainer.ImageGrid.Children.Add(b);
-
-                    this._progress += ((_progressCounter + _progress) <= 100) ? _progressCounter : 100;
-                }));
-                (sender as BackgroundWorker).ReportProgress((int)this._progress, this._progress);
-            }
-
-        }
-
-        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            while (true)
-                if (((MainWindow)Application.Current.MainWindow)._imageContainer.ImageGrid.Children.Count == this.fetcher.getFiles().Count)
-                    break;
-            this.Close();
-        }
-
-        private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            this.Progressbar.Value = (double)e.UserState;
-        }
-        public void showDialog()
-        {
-            ShowDialog();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            backgroundWorker.RunWorkerAsync();
-        }
-
-        private void addRowstoGrid()
-        {
-            int rowCount = ((MainWindow)Application.Current.MainWindow)._imageContainer.ImageGrid.RowDefinitions.Count;
-            for (int i = 0; i < this.fetcher.getFiles().Count + rowCount / 5; i++)
-            {
-                RowDefinition rd = new RowDefinition();
-                rd.Height = new GridLength(125);
-                ((MainWindow)Application.Current.MainWindow)._imageContainer.ImageGrid.RowDefinitions.Add(rd);
-            }
         }*/
     }
 }
